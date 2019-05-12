@@ -1,0 +1,28 @@
+@import '../../../assets/styles/theme';
+
+.sign-in-container {
+  min-height: 100%;
+  // Image Source: https://images.unsplash.com/photo-1491183672482-d0af0e44929d
+  background: white url("assets/img/sign-in-background.jpg") no-repeat center center;
+  background-size: cover;
+
+  .sign-in-box {
+    min-width: 312px;
+    padding: 24px 16px 16px 16px;
+    background: white;
+    border-radius: 8px;
+    box-sizing: border-box;
+
+    h1 {
+      margin: 0;
+      text-align: center;
+      color: mat-color($fc-primary, default);
+    }
+  }
+
+  @media screen and (max-width: 599px) {
+    background-image: url("assets/img/sign-in-background-xs.jpg");
+  }
+}
+
+

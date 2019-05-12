@@ -1,0 +1,7 @@
+<ng-container *ngIf="authService.signedIn then dashboardPageTemplate; else signInPageTemplate;"></ng-container>
+<ng-template #dashboardPageTemplate>
+    <fc-dashboard></fc-dashboard>
+</ng-template>
+<ng-template #signInPageTemplate>
+    <fc-sign-in-page></fc-sign-in-page>
+</ng-template>

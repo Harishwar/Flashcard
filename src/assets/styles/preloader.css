@@ -1,0 +1,44 @@
+/* Center div using transform */
+div.page-center {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.preloader svg {
+    width: 42px;
+    transform-origin: center;
+    animation: rotate 2s linear infinite;
+}
+
+.preloader svg circle {
+    fill: none;
+    stroke: #1565C0;
+    stroke-width: 4;
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+    animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dasharray: 90, 200;
+        stroke-dashoffset: -35px;
+    }
+    100% {
+        stroke-dashoffset: -125px;
+    }
+}
+

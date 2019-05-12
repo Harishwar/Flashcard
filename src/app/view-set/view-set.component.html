@@ -1,0 +1,18 @@
+<div *ngIf="isLoading; else viewSetTemplate;" class="page-center">
+    <fc-progress-spinner [loading]="true"></fc-progress-spinner>
+</div>
+<ng-template #viewSetTemplate>
+    <mat-toolbar color="primary" class="mat-elevation-z1">
+        <h1>Flashcard App</h1>
+        <span fxFlex="auto"></span>
+        <button type="button" mat-icon-button (click)="openSignInDialog()">
+            Sign in
+        </button>
+    </mat-toolbar>
+    <main *ngIf="set">
+        <h2>
+            {{ set.name }}
+        </h2>
+        <hr />
+    </main>
+</ng-template>

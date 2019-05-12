@@ -1,0 +1,25 @@
+@import '~@angular/material/theming';
+
+$fc-primary: mat-palette($mat-blue, 800);
+$fc-accent: mat-palette($mat-pink, A200, A100, A400);
+$fc-warn: mat-palette($mat-red, 600);
+
+$fc-theme: mat-light-theme($fc-primary, $fc-accent, $fc-warn);
+
+@include angular-material-theme($fc-theme);
+
+/** Colors */
+$fc-primary-color: mat-color($fc-primary, default);
+.fc-primary {
+  color: $fc-primary-color;
+}
+
+$fc-accent-color: mat-color($fc-accent, default);
+.fc-accent {
+  color: $fc-accent-color;
+}
+
+$fc-warn-color: mat-color($fc-warn, default);
+.fc-warn {
+  color: $fc-warn-color;
+}

@@ -1,0 +1,15 @@
+type Set @model {
+    id: ID!
+    name: String!
+    createdAt: AWSDateTime
+    cards: [Card] @connection(name: "CardsSet", sortField: "order")
+}
+
+type Card @model {
+    id: ID!
+    createdAt: AWSDateTime
+    title: String!
+    description: String!
+    order: Int!
+    set: Set! @connection(name: "CardsSet", sortField: "order")
+}
