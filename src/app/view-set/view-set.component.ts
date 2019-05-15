@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import gql from 'graphql-tag';
 
-import { getSet } from '../../graphql/queries';
-import { AppSyncResponse, FetchPolicy, SetInterface } from '../models';
-import { AppSyncService } from '../services/app-sync.service';
+import { SetInterface } from '../models';
 import { SignInDialogComponent } from '../sign-in/sign-in-dialog/sign-in-dialog.component';
 
 @Component({
@@ -21,11 +18,10 @@ export class ViewSetComponent {
     constructor(
         private router: Router,
         private activatedRoute: ActivatedRoute,
-        private dialog: MatDialog,
-        private appSyncService: AppSyncService
+        private dialog: MatDialog
     ) {
         activatedRoute.params.subscribe((params) => {
-            this.getSet(params.id);
+            // this.getSet(params.id);
         });
     }
 
@@ -33,29 +29,7 @@ export class ViewSetComponent {
         if (!setId) {
             this.redirectToHomepage();
         }
-        this.isLoading = true;
-        this.appSyncService.appSyncClient
-            .query({
-                fetchPolicy: FetchPolicy.NetworkOnly,
-                query: gql(getSet),
-                variables: {
-                    id: setId
-                }
-            })
-            .then((res: AppSyncResponse) => {
-                console.log(res);
-                this.isLoading = false;
-                if (res.data && res.data.getSet) {
-                    this.set = res.data.getSet;
-                } else {
-                    this.redirectToHomepage();
-                }
-            })
-            .catch((err) => {
-                console.warn(err);
-                this.isLoading = false;
-                this.redirectToHomepage();
-            });
+        // ToDo
     }
 
     private redirectToHomepage() {

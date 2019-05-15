@@ -6,9 +6,10 @@ export interface AppSyncResponse {
 }
 
 export interface SetInterface {
-    id: string | null;
+    id?: string | null;
     name: string;
     createdAt: string | null;
+    uid: string;
     cards: CardInterface[];
 }
 

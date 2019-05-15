@@ -3,17 +3,17 @@
         <mat-label>Email</mat-label>
         <input matInput type="text" formControlName="email">
         <mat-error *ngIf="signInForm.hasError('required', ['email'])">
-            Email is required
+            Please enter username
         </mat-error>
         <mat-error *ngIf="signInForm.hasError('email', ['email'])">
-            Invalid Email
+            Invalid email address
         </mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
         <input matInput type="password" formControlName="password">
         <mat-error *ngIf="signInForm.hasError('required', ['password'])">
-            Password is required
+            Please enter a password
         </mat-error>
     </mat-form-field>
     <div *ngIf="signInError" class="error-msg">
@@ -22,7 +22,7 @@
     <button type="submit" mat-raised-button color="primary" [disabled]="signInLoading">
         <fc-button-spinner [loading]="signInLoading"></fc-button-spinner>
         <ng-container *ngIf="!signInLoading">
-            Sign in
+            Sign In
         </ng-container>
     </button>
 </form>

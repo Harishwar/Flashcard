@@ -2,32 +2,42 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import {
     MAT_DIALOG_DEFAULT_OPTIONS,
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,
-    MatCheckboxModule, MatDialogModule, MatDividerModule, MatIconModule,
-    MatInputModule, MatProgressSpinnerModule, MatSelectModule, MatSnackBarModule, MatToolbarModule
+    MatCheckboxModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatIconModule,
+    MatInputModule,
+    MatSelectModule,
+    MatSnackBarModule,
+    MatToolbarModule,
+    MatTooltipModule
 } from '@angular/material';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule, StorageBucket } from '@angular/fire/storage';
 
+import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './home/home.component';
-import { AppSyncService } from './services/app-sync.service';
 import { SignInFormComponent } from './sign-in/sign-in-form/sign-in-form.component';
 import { SignInPageComponent } from './sign-in/sign-in-page/sign-in-page.component';
 import { SignInDialogComponent } from './sign-in/sign-in-dialog/sign-in-dialog.component';
 import { ViewSetComponent } from './view-set/view-set.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.component';
-import { ButtonSpinnerComponent } from './button-spinner/button-spinner.component';
+import { SetDialogComponent } from './dashboard/set-dialog/set-dialog.component';
+import { AddCardDialogComponent } from './dashboard/add-card-dialog/add-card-dialog.component';
 
 const APP_PROVIDERS = [
-    AmplifyService,
-    AppSyncService,
+    { provide: StorageBucket, useValue: 'flashcard-f874a' },
     {
         provide: MAT_DIALOG_DEFAULT_OPTIONS,
         useFactory: () => {
@@ -50,8 +60,8 @@ const APP_PROVIDERS = [
         SignInDialogComponent,
         ViewSetComponent,
         DashboardComponent,
-        ProgressSpinnerComponent,
-        ButtonSpinnerComponent,
+        SetDialogComponent,
+        AddCardDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -59,7 +69,10 @@ const APP_PROVIDERS = [
         AppRoutingModule,
         FormsModule,
         ReactiveFormsModule,
-        AmplifyAngularModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireAuthModule,
+        AngularFirestoreModule,
+        AngularFireStorageModule,
         FlexLayoutModule,
         MatInputModule,
         MatButtonModule,
@@ -70,16 +83,19 @@ const APP_PROVIDERS = [
         MatDividerModule,
         MatIconModule,
         MatInputModule,
-        MatProgressSpinnerModule,
         MatSelectModule,
         MatSnackBarModule,
-        MatToolbarModule
+        MatToolbarModule,
+        MatTooltipModule,
+        SharedModule
     ],
     providers: [
         APP_PROVIDERS
     ],
     entryComponents: [
-        SignInDialogComponent
+        SignInDialogComponent,
+        SetDialogComponent,
+        AddCardDialogComponent
     ],
     bootstrap: [
         AppComponent

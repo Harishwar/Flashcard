@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { AuthService } from '../../services/auth.service';
+import { FirebaseService } from '../../services/firebase.service';
 
 @Component({
     selector: 'fc-sign-in-form',
@@ -17,7 +17,7 @@ export class SignInFormComponent implements OnInit {
     @Output()
     public signIn = new EventEmitter<boolean>();
 
-    constructor(public authService: AuthService) {
+    constructor(public firebaseService: FirebaseService) {
     }
 
     ngOnInit() {
@@ -34,7 +34,7 @@ export class SignInFormComponent implements OnInit {
         this.signInError = null;
         if (this.signInForm.valid) {
             this.signInLoading = true;
-            this.authService.signIn(
+            this.firebaseService.signIn(
                 this.signInForm.get('email').value,
                 this.signInForm.get('password').value
             ).then((data) => {

@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>
+    {{ set ? 'Edit Set' : 'Add Set' }}
+</h2>
+<form [formGroup]="setForm" (ngSubmit)="addOrUpdateSet()">
+    <mat-dialog-content>
+        <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" autocomplete="off" />
+            <mat-error *ngIf="setForm.hasError('required', ['name'])">
+                Name is required
+            </mat-error>
+        </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+        <button type="button" mat-stroked-button mat-dialog-close>
+            Cancel
+        </button>
+        <div>
+            <button *ngIf="set" type="button" mat-button color="warn" [disabled]="isUpdating || isDeleting"
+                    (click)="deleteSet()">
+                <ng-container *ngIf="!isDeleting">
+                    Delete
+                </ng-container>
+                <fc-button-spinner [loading]="isDeleting"></fc-button-spinner>
+            </button>
+            <button type="submit" mat-raised-button color="primary" [disabled]="isUpdating || isDeleting">
+                <ng-container *ngIf="!isUpdating">
+                    {{ set ? 'Update' : 'Add' }}
+                </ng-container>
+                <fc-button-spinner [loading]="isUpdating"></fc-button-spinner>
+            </button>
+        </div>
+    </mat-dialog-actions>
+</form>

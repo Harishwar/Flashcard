@@ -1,7 +1,7 @@
 @import '~@angular/material/theming';
 
 $fc-primary: mat-palette($mat-blue, 800);
-$fc-accent: mat-palette($mat-pink, A200, A100, A400);
+$fc-accent: mat-palette($mat-light-blue, 800);
 $fc-warn: mat-palette($mat-red, 600);
 
 $fc-theme: mat-light-theme($fc-primary, $fc-accent, $fc-warn);

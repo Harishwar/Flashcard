@@ -1,0 +1,35 @@
+.set-title {
+  margin-top: 0;
+}
+
+.set-container {
+  margin-left: -6px;
+  margin-right: -6px;
+
+  .add-set,
+  .set-wrapper {
+    padding: 0 6px 12px 6px;
+
+    button {
+      height: 100%;
+      min-height: 64px;
+      min-width: 120px;
+      font-size: 1.2em;
+      white-space: normal;
+    }
+
+    button.active {
+      color: white;
+      background: #1565C0;
+    }
+  }
+
+  .add-set {
+    mat-icon {
+      width: 40px;
+      height: 40px;
+      font-size: 40px;
+    }
+  }
+}
+

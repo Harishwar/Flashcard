@@ -1,10 +1,40 @@
 <mat-toolbar color="primary" class="mat-elevation-z1">
     <h1>Flashcard App</h1>
     <span fxFlex="auto"></span>
-    <button type="button" mat-icon-button (click)="signOut()">
+    <button type="button" mat-icon-button (click)="signOut()"
+            matTooltip="Sign out" matTooltipPosition="below">
         <mat-icon>logout</mat-icon>
     </button>
 </mat-toolbar>
 <main>
-    ...
+    <h2 class="set-title">
+        Sets
+    </h2>
+    <div class="set-container" fxLayout="row wrap" fxLayoutAlign="start stretch">
+        <div class="set-wrapper" *ngFor="let set of setsList">
+            <button type="button" mat-stroked-button color="accent"
+                    [ngClass]="{'active' : set.id === activeSet.id}"
+                    (click)="makeSetActive(set)">
+                {{ set.name }}
+            </button>
+        </div>
+        <div class="add-set">
+            <button mat-button color="accent" [disabled]="setsLoading" (click)="openAddSetDialog()"
+                    matTooltip="Add Set">
+                <ng-container *ngIf="!setsLoading">
+                    <mat-icon>add_circle</mat-icon>
+                </ng-container>
+                <fc-button-spinner [loading]="setsLoading"></fc-button-spinner>
+            </button>
+        </div>
+    </div>
+    <hr />
+    <div *ngIf="activeSet" fxLayout="row" fxLayoutAlign="space-between center">
+        <h3>
+            {{ activeSet.name }}
+        </h3>
+        <button type="button" mat-raised-button color="accent" (click)="openEditSetDialog()">
+            Edit
+        </button>
+    </div>
 </main>

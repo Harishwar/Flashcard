@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { Component } from '@angular/core';
+
+import { FirebaseService } from '../services/firebase.service';
 
 @Component({
-  selector: 'fc-home',
-  templateUrl: './home.component.html'
+    selector: 'fc-home',
+    templateUrl: './home.component.html'
 })
-export class HomeComponent implements OnInit {
 
-  constructor(public authService: AuthService) { }
+export class HomeComponent {
 
-  ngOnInit() {
-  }
+    constructor(public firebaseService: FirebaseService) {
+    }
 
 }

@@ -1,4 +1,4 @@
-<ng-container *ngIf="authService.signedIn then dashboardPageTemplate; else signInPageTemplate;"></ng-container>
+<ng-container *ngIf="firebaseService.userId then dashboardPageTemplate; else signInPageTemplate;"></ng-container>
 <ng-template #dashboardPageTemplate>
     <fc-dashboard></fc-dashboard>
 </ng-template>

@@ -4,6 +4,7 @@ import { Component, Input } from '@angular/core';
     selector: 'fc-progress-spinner',
     templateUrl: './progress-spinner.component.html'
 })
+
 export class ProgressSpinnerComponent {
 
     @Input()

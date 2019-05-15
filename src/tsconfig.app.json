@@ -5,7 +5,8 @@
     "outDir": "../out-tsc/app",
     "allowJs": true,
     "types": [
-      "node"
+      "node",
+      "hammerjs"
     ]
   },
   "exclude": [
