@@ -1,6 +1,4 @@
-.set-title {
-  margin-top: 0;
-}
+@import '../../assets/styles/theme';
 
 .set-container {
   margin-left: -6px;
@@ -9,19 +7,26 @@
   .add-set,
   .set-wrapper {
     padding: 0 6px 12px 6px;
+    border-radius: 20px;
+    transition: 0.4s;
 
     button {
       height: 100%;
-      min-height: 64px;
-      min-width: 120px;
-      font-size: 1.2em;
+      min-height: 80px;
+      min-width: 148px;
+      font-size: 1.3em;
       white-space: normal;
     }
 
     button.active {
       color: white;
-      background: #1565C0;
+      background: #1565C0; // ToDo: Change
     }
+  }
+
+  .add-set:hover,
+  .set-wrapper:hover {
+    transform: scale(0.9, 0.9);
   }
 
   .add-set {
@@ -33,3 +38,48 @@
   }
 }
 
+.set-title {
+  margin: 6px 0 16px 0;
+  padding: 0 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+  h3 {
+    margin: 0;
+  }
+}
+
+.card-container {
+  margin-left: -6px;
+  margin-right: -6px;
+
+  .card-wrapper {
+    width: 260px;
+    height: 100%;
+    min-height: 160px;
+    margin: 0 6px 12px 6px;
+    box-sizing: border-box;
+    border-radius: 8px;
+
+    button.edit-card:not(:hover) {
+      opacity: 0.6;
+    }
+
+    @media screen and (max-width: 479px) {
+      width: 100%;
+    }
+  }
+
+  button.add-card {
+    mat-icon {
+      width: 56px;
+      height: 56px;
+      font-size: 56px;
+    }
+  }
+
+  button.add-card:hover {
+    color: mat-color($fc-accent, default);
+  }
+
+}

@@ -5,7 +5,7 @@
     <mat-dialog-content>
         <mat-form-field appearance="outline" style="width: 100%">
             <mat-label>Name</mat-label>
-            <input matInput formControlName="name" autocomplete="off" />
+            <input matInput formControlName="name" autocomplete="off" maxlength="50"/>
             <mat-error *ngIf="setForm.hasError('required', ['name'])">
                 Name is required
             </mat-error>
@@ -15,7 +15,7 @@
         <button type="button" mat-stroked-button mat-dialog-close>
             Cancel
         </button>
-        <div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
             <button *ngIf="set" type="button" mat-button color="warn" [disabled]="isUpdating || isDeleting"
                     (click)="deleteSet()">
                 <ng-container *ngIf="!isDeleting">

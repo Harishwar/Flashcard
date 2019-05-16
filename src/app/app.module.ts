@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import {
     MAT_DIALOG_DEFAULT_OPTIONS,
     MatButtonModule,
@@ -22,6 +23,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule, StorageBucket } from '@angular/fire/storage';
+import { ClipboardModule } from 'ngx-clipboard';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -34,7 +36,8 @@ import { SignInDialogComponent } from './sign-in/sign-in-dialog/sign-in-dialog.c
 import { ViewSetComponent } from './view-set/view-set.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SetDialogComponent } from './dashboard/set-dialog/set-dialog.component';
-import { AddCardDialogComponent } from './dashboard/add-card-dialog/add-card-dialog.component';
+import { ShareSetDialogComponent } from './dashboard/share-set-dialog/share-set-dialog.component';
+import { CardDialogComponent } from './dashboard/card-dialog/card-dialog.component';
 
 const APP_PROVIDERS = [
     { provide: StorageBucket, useValue: 'flashcard-f874a' },
@@ -61,7 +64,8 @@ const APP_PROVIDERS = [
         ViewSetComponent,
         DashboardComponent,
         SetDialogComponent,
-        AddCardDialogComponent
+        ShareSetDialogComponent,
+        CardDialogComponent,
     ],
     imports: [
         BrowserModule,
@@ -73,7 +77,9 @@ const APP_PROVIDERS = [
         AngularFireAuthModule,
         AngularFirestoreModule,
         AngularFireStorageModule,
+        ClipboardModule,
         FlexLayoutModule,
+        DragDropModule,
         MatInputModule,
         MatButtonModule,
         MatButtonToggleModule,
@@ -95,7 +101,8 @@ const APP_PROVIDERS = [
     entryComponents: [
         SignInDialogComponent,
         SetDialogComponent,
-        AddCardDialogComponent
+        ShareSetDialogComponent,
+        CardDialogComponent,
     ],
     bootstrap: [
         AppComponent

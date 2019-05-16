@@ -2,24 +2,25 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 
-import { CRUD, SetInterface } from '../../models';
 import { FirebaseService } from '../../services/firebase.service';
 import { HelperService } from '../../services/helper.service';
+import { CardInterface, CRUD } from '../../models';
 
 @Component({
-    templateUrl: 'set-dialog.component.html'
+    templateUrl: 'card-dialog.component.html',
+    styleUrls: ['./card-dialog.component.scss']
 })
 
-export class SetDialogComponent implements OnInit {
+export class CardDialogComponent implements OnInit {
 
-    public setForm: FormGroup;
+    public cardForm: FormGroup;
     public isUpdating: boolean;
     public isDeleting: boolean;
-
-    public set: SetInterface;
+    public setId: string;
+    public card: CardInterface;
 
     constructor(
-        private dialogRef: MatDialogRef<SetDialogComponent>,
+        private dialogRef: MatDialogRef<CardDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
         private snackBar: MatSnackBar,
         private firebaseService: FirebaseService,
@@ -28,30 +29,35 @@ export class SetDialogComponent implements OnInit {
     }
 
     ngOnInit() {
-        // Update set value to edit and delete
-        if (this.data && this.data.status === CRUD.UPDATE) {
-            this.set = this.data.activeSet;
+        if (this.data) {
+            this.setId = this.data.setId;
+            if (this.data.status === CRUD.UPDATE) {
+                this.card = JSON.parse(JSON.stringify(this.data.card));
+            }
         }
 
-        this.setForm = new FormGroup({
-            name: new FormControl(this.set ? this.set.name : undefined, [Validators.required])
+        this.cardForm = new FormGroup({
+            term: new FormControl(this.card ? this.card.term : undefined, [Validators.required]),
+            definition: new FormControl(this.card ? this.card.definition : undefined, [Validators.required])
         });
     }
 
     /**
-     * Add or update set
+     * Add or update card
      */
-    addOrUpdateSet() {
-        if (this.setForm.valid) {
+    addOrUpdateCard() {
+        if (this.cardForm.valid) {
             this.isUpdating = true;
             if (this.data.status === CRUD.UPDATE) {
-                this.firebaseService.updateSet(this.set.id, this.setForm.get('name').value)
+                this.card.term = this.cardForm.get('term').value;
+                this.card.definition = this.cardForm.get('definition').value;
+                this.firebaseService.updateCard(this.setId, this.card)
                     .then((data) => {
                         console.log(data);
                         this.isUpdating = false;
                         this.closeDialog({
                             status: CRUD.UPDATE,
-                            set: data
+                            card: data
                         });
                     })
                     .catch((err) => {
@@ -62,13 +68,17 @@ export class SetDialogComponent implements OnInit {
                         this.isUpdating = false;
                     });
             } else {
-                this.firebaseService.createSet(this.setForm.get('name').value)
+                const card: CardInterface = {
+                    term: this.cardForm.get('term').value,
+                    definition: this.cardForm.get('definition').value
+                };
+                this.firebaseService.createCard(this.setId, card)
                     .then((data) => {
                         console.log(data);
                         this.isUpdating = false;
                         this.closeDialog({
                             status: CRUD.CREATE,
-                            set: data
+                            card: data
                         });
                     })
                     .catch((err) => {
@@ -83,12 +93,12 @@ export class SetDialogComponent implements OnInit {
     }
 
     /**
-     * Delete set
+     * Delete card
      */
-    deleteSet() {
-        if (this.set && this.set.id) {
+    deleteCard() {
+        if (this.card && this.card.id) {
             this.isDeleting = true;
-            this.firebaseService.deleteSet(this.set.id)
+            this.firebaseService.deleteCard(this.setId, this.card.id)
                 .then((data) => {
                     console.log(data);
                     this.isDeleting = false;

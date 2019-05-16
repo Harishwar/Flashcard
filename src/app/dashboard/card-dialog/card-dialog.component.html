@@ -1,0 +1,41 @@
+<h2 mat-dialog-title>
+    {{ card ? 'Edit Card' : 'Add Card' }}
+</h2>
+<form [formGroup]="cardForm" (ngSubmit)="addOrUpdateCard()">
+    <mat-dialog-content>
+        <mat-form-field appearance="outline">
+            <mat-label>Term</mat-label>
+            <input matInput formControlName="term" autocomplete="off" maxlength="100" />
+            <mat-error *ngIf="cardForm.hasError('required', ['term'])">
+                Term is required
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Definition</mat-label>
+            <textarea matInput formControlName="definition" autocomplete="off" maxlength="500"></textarea>
+            <mat-error *ngIf="cardForm.hasError('required', ['definition'])">
+                Definition is required
+            </mat-error>
+        </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+        <button type="button" mat-stroked-button mat-dialog-close>
+            Cancel
+        </button>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+            <button *ngIf="card" type="button" mat-button color="warn" [disabled]="isUpdating || isDeleting"
+                    (click)="deleteCard()">
+                <ng-container *ngIf="!isDeleting">
+                    Delete
+                </ng-container>
+                <fc-button-spinner [loading]="isDeleting"></fc-button-spinner>
+            </button>
+            <button type="submit" mat-raised-button color="primary" [disabled]="isUpdating || isDeleting">
+                <ng-container *ngIf="!isUpdating">
+                    {{ card ? 'Update' : 'Add' }}
+                </ng-container>
+                <fc-button-spinner [loading]="isUpdating"></fc-button-spinner>
+            </button>
+        </div>
+    </mat-dialog-actions>
+</form>

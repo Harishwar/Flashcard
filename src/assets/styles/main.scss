@@ -22,8 +22,8 @@ hr {
   width: 100%;
   border: 0;
   overflow: visible;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 1em;
+  margin-bottom: 1em;
   border-top: 1px solid rgba(0, 0, 0, 0.12);
 }
 
@@ -49,6 +49,12 @@ main {
   float: right;
 }
 
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .hidden {
   display: none;
 }
@@ -62,6 +68,7 @@ main {
 .mat-dialog-content {
   padding-top: 8px;
   padding-bottom: 8px;
+  min-height: 80px;
   min-width: 380px;
 
   @media screen and (max-width: 479px) {

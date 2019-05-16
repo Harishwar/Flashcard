@@ -2,7 +2,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 
-import { SetInterface } from '../models';
+import { CardInterface, SetInterface } from '../models';
 
 @Injectable({
     providedIn: 'root'
@@ -39,6 +39,27 @@ export class FirebaseService {
     }
 
     /**
+     * Sign in
+     */
+    signIn(email: string, password: string) {
+        return this.afAuth.auth.signInWithEmailAndPassword(email, password);
+    }
+
+    /**
+     * Create account
+     */
+    signUp(email: string, password: string) {
+        return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+    }
+
+    /**
+     * Sign out
+     */
+    signOut() {
+        this.afAuth.auth.signOut().catch((err) => console.warn(err));
+    }
+
+    /**
      * List of sets created by user
      */
     getUserSets() {
@@ -62,7 +83,7 @@ export class FirebaseService {
      * Create new set
      */
     createSet(name: string) {
-        return this.afs.collection('sets').add({
+        return this.afs.collection<SetInterface>('sets').add({
             name,
             uid: this.userId,
             createdAt: new Date()
@@ -74,7 +95,7 @@ export class FirebaseService {
      * Only name can be edited
      */
     updateSet(setId: string, newName: string) {
-        return this.afs.collection('users').doc(setId).set({
+        return this.afs.collection<SetInterface>('sets').doc(setId).update({
             name: newName,
             updatedAt: new Date()
         });
@@ -84,19 +105,62 @@ export class FirebaseService {
      * Delete set
      */
     deleteSet(setId: string) {
-        return this.afs.collection('sets').doc(setId).delete();
+        return this.afs.collection<SetInterface>('sets').doc(setId).delete();
     }
 
-    signUp(email: string, password: string) {
-        return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+    /**
+     * List of cards in a set
+     */
+    getCards(setId: string) {
+        return this.afs.collection<SetInterface>('sets').doc(setId).collection<CardInterface>('cards', ref => {
+            return ref.orderBy('order').orderBy('createdAt');
+        }).snapshotChanges();
     }
 
-    signIn(email: string, password: string) {
-        return this.afAuth.auth.signInWithEmailAndPassword(email, password);
+    /**
+     * Add new card to set
+     */
+    createCard(setId: string, card: CardInterface) {
+        return this.afs.collection<SetInterface>('sets').doc(setId).collection<CardInterface>('cards').add({
+            term: card.term,
+            definition: card.definition,
+            createdAt: new Date(),
+            order: 10000 // Set high number initially
+        });
     }
 
-    signOut() {
-        this.afAuth.auth.signOut().catch((err) => console.warn(err));
+    /**
+     * Update card details
+     */
+    updateCard(setId: string, card: CardInterface) {
+        return this.afs.collection<SetInterface>('sets').doc(setId).collection<CardInterface>('cards').doc(card.id).update({
+            term: card.term,
+            definition: card.definition,
+            updatedAt: new Date()
+        });
+    }
+
+    /**
+     * Update order of the cards
+     */
+    updateCardsOrder(setId: string, cardIdsWithOrder: object): void {
+        const cardsCollection = this.afs.collection<SetInterface>('sets').doc(setId).collection<CardInterface>('cards');
+        Object.keys(cardIdsWithOrder).forEach((cardId, index) => {
+            cardsCollection.doc(cardId)
+                .update({
+                    order: index
+                })
+                .catch((err) => {
+                    console.warn(err);
+                });
+        });
+    }
+
+    /**
+     * Delete card
+     */
+    deleteCard(setId: string, cardId: string) {
+        return this.afs.collection<SetInterface>('sets').doc(setId).collection<CardInterface>('cards').doc(cardId).delete();
     }
 
 }
