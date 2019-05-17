@@ -49,9 +49,8 @@
         </div>
         <fc-progress-bar [loading]="cardsLoading"></fc-progress-bar>
         <div class="card-background" *ngIf="!cardsLoading">
-            <div class="card-container" fxLayout="row wrap" fxLayoutAlign="start stretch"
-                 cdkDropListOrientation="horizontal" cdkDropList (cdkDropListDropped)="reOrderCards($event)">
-                <mat-card class="card-wrapper mat-elevation-z2" *ngFor="let card of activeSet.cards" cdkDrag>
+            <div class="card-container" fxLayout="row wrap" fxLayoutAlign="start stretch">
+                <mat-card class="card-wrapper mat-elevation-z2" *ngFor="let card of activeSet.cards">
                     <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
                         <span>{{ card.term }}</span>
                         <button type="button" class="edit-card" mat-icon-button matTooltip="Edit Card"

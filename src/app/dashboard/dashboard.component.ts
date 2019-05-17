@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { CardInterface, CRUD, SetInterface } from '../models';
 import { FirebaseService } from '../services/firebase.service';
@@ -177,21 +176,6 @@ export class DashboardComponent implements OnInit {
                 }
             }
         });
-    }
-
-    /**
-     * Update cards order
-     */
-    reOrderCards(event: CdkDragDrop<string[]>) {
-        moveItemInArray(this.activeSet.cards, event.previousIndex, event.currentIndex);
-        // Find the cards with order not matching the index value and update in DB
-        const cardIdsWithOrder = {};
-        this.activeSet.cards.forEach((card, index) => {
-            if (card.order !== index) {
-                cardIdsWithOrder[card.id] = index;
-            }
-        });
-        this.firebaseService.updateCardsOrder(this.activeSet.id, cardIdsWithOrder);
     }
 
 }

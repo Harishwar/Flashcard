@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { DragDropModule } from '@angular/cdk/drag-drop';
 import {
     MAT_DIALOG_DEFAULT_OPTIONS,
     MatButtonModule,
@@ -79,7 +78,6 @@ const APP_PROVIDERS = [
         AngularFireStorageModule,
         ClipboardModule,
         FlexLayoutModule,
-        DragDropModule,
         MatInputModule,
         MatButtonModule,
         MatButtonToggleModule,
