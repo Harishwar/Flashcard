@@ -32,7 +32,8 @@ export class DashboardComponent implements OnInit {
     }
 
     signOut() {
-        this.firebaseService.signOut();
+        this.firebaseService.signOut()
+            .catch((err) => console.warn(err));
     }
 
     /**
@@ -53,10 +54,9 @@ export class DashboardComponent implements OnInit {
                         this.makeSetActive(this.setsList[0]);
                     }
                 }
-                console.log(this.setsList);
                 this.setsLoading = false;
             }, (err) => {
-                console.log(err);
+                console.warn(err);
                 this.setsLoading = false;
             });
     }
@@ -92,7 +92,9 @@ export class DashboardComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe((response) => {
             if (response) {
-                if (response.status === CRUD.DELETE) {
+                if (response.status === CRUD.UPDATE && response.set) {
+                    this.activeSet.name = response.set.name;
+                } else if (response.status === CRUD.DELETE) {
                     this.activeSet = this.setsList[0];
                 }
             }
@@ -123,7 +125,6 @@ export class DashboardComponent implements OnInit {
         this.cardsLoading = true;
         this.firebaseService.getCards(setId).subscribe(
             (data) => {
-                console.log(setId, data);
                 if (data) {
                     this.activeSet.cards = data.map(actions => {
                         const id = actions.payload.doc.id;
@@ -131,10 +132,9 @@ export class DashboardComponent implements OnInit {
                         return { id, ...doc };
                     });
                 }
-                console.log(this.activeSet);
                 this.cardsLoading = false;
             }, (err) => {
-                console.log(err);
+                console.warn(err);
                 this.cardsLoading = false;
             });
     }

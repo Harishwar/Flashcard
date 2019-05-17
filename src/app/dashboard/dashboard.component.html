@@ -9,40 +9,45 @@
 <main>
     <div class="set-container" fxLayout="row wrap" fxLayoutAlign="start stretch">
         <div class="set-wrapper" *ngFor="let set of setsList">
-            <button type="button" mat-stroked-button color="accent"
+            <button type="button" mat-stroked-button color="primary"
                     [ngClass]="{'active' : set.id === activeSet?.id}"
                     (click)="makeSetActive(set)">
                 {{ set.name }}
             </button>
         </div>
         <div class="add-set">
-            <button mat-stroked-button color="accent" [disabled]="setsLoading" (click)="addSet()"
-                    matTooltip="Add Set">
+            <button mat-stroked-button color="primary" [disabled]="setsLoading" (click)="addSet()">
                 <ng-container *ngIf="!setsLoading">
                     <mat-icon>add_circle</mat-icon>
+                    <br />
+                    Add Set
                 </ng-container>
                 <fc-button-spinner [loading]="setsLoading"></fc-button-spinner>
             </button>
         </div>
     </div>
-    <div *ngIf="activeSet">
+    <div *ngIf="activeSet;">
+        <hr />
         <div class="set-title" fxLayout="row" fxLayoutAlign="space-between center">
-            <h2 class="ellipsis">
-                {{ activeSet.name }}
-            </h2>
+            <div fxFlex="grow" class="set-name">
+                <h2>
+                    <mat-icon>filter_none</mat-icon>
+                    <span>{{ activeSet.name }}</span>
+                </h2>
+            </div>
             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="12px">
-                <button type="button" mat-icon-button color="accent" matTooltip="Edit"
+                <button type="button" mat-icon-button color="accent" matTooltip="Edit/Delete Set"
                         (click)="editSet()">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button type="button" mat-icon-button color="accent" matTooltip="Share"
+                <button type="button" mat-icon-button color="accent" matTooltip="Share Set"
                         (click)="shareSet()">
                     <mat-icon>share</mat-icon>
                 </button>
             </div>
         </div>
         <fc-progress-bar [loading]="cardsLoading"></fc-progress-bar>
-        <div *ngIf="!cardsLoading">
+        <div class="card-background" *ngIf="!cardsLoading">
             <div class="card-container" fxLayout="row wrap" fxLayoutAlign="start stretch"
                  cdkDropListOrientation="horizontal" cdkDropList (cdkDropListDropped)="reOrderCards($event)">
                 <mat-card class="card-wrapper mat-elevation-z2" *ngFor="let card of activeSet.cards" cdkDrag>
@@ -60,10 +65,22 @@
                     </mat-card-content>
                 </mat-card>
                 <button type="button" class="card-wrapper add-card mat-elevation-z2" mat-stroked-button color="accent"
-                        matTooltip="Add Card" (click)="addCard()">
+                        (click)="addCard()">
                     <mat-icon>add_circle</mat-icon>
+                    <br />
+                    Add Card
                 </button>
             </div>
         </div>
     </div>
+    <ng-container *ngIf="!setsLoading && !activeSet">
+        <br />
+        <div class="card-background">
+            <br />
+            <h3 class="placeholder-text text-center">
+                Get started by adding your first cards set...
+            </h3>
+            <br />
+        </div>
+    </ng-container>
 </main>

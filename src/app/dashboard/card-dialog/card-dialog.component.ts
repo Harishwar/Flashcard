@@ -53,7 +53,6 @@ export class CardDialogComponent implements OnInit {
                 this.card.definition = this.cardForm.get('definition').value;
                 this.firebaseService.updateCard(this.setId, this.card)
                     .then((data) => {
-                        console.log(data);
                         this.isUpdating = false;
                         this.closeDialog({
                             status: CRUD.UPDATE,
@@ -61,7 +60,6 @@ export class CardDialogComponent implements OnInit {
                         });
                     })
                     .catch((err) => {
-                        console.warn(err);
                         if (err && err.message) {
                             this.helperService.showMessage(err.message);
                         }
@@ -74,7 +72,6 @@ export class CardDialogComponent implements OnInit {
                 };
                 this.firebaseService.createCard(this.setId, card)
                     .then((data) => {
-                        console.log(data);
                         this.isUpdating = false;
                         this.closeDialog({
                             status: CRUD.CREATE,
@@ -82,7 +79,6 @@ export class CardDialogComponent implements OnInit {
                         });
                     })
                     .catch((err) => {
-                        console.warn(err);
                         if (err && err.message) {
                             this.helperService.showMessage(err.message);
                         }
@@ -100,14 +96,12 @@ export class CardDialogComponent implements OnInit {
             this.isDeleting = true;
             this.firebaseService.deleteCard(this.setId, this.card.id)
                 .then((data) => {
-                    console.log(data);
                     this.isDeleting = false;
                     this.closeDialog({
                         status: CRUD.DELETE
                     });
                 })
                 .catch((err) => {
-                    console.warn(err);
                     if (err && err.message) {
                         this.helperService.showMessage(err.message);
                     }

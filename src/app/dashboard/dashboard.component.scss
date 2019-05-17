@@ -1,5 +1,10 @@
 @import '../../assets/styles/theme';
 
+.toolbar {
+  color: white;
+  background-color: $dark-blue;
+}
+
 .set-container {
   margin-left: -6px;
   margin-right: -6px;
@@ -7,20 +12,21 @@
   .add-set,
   .set-wrapper {
     padding: 0 6px 12px 6px;
-    border-radius: 20px;
-    transition: 0.4s;
+    border-radius: 24px;
+    transition: 0.3s;
 
     button {
       height: 100%;
-      min-height: 80px;
-      min-width: 148px;
+      min-height: 90px;
+      min-width: 160px;
       font-size: 1.3em;
       white-space: normal;
+      border-radius: 8px;
     }
 
     button.active {
       color: white;
-      background: #1565C0; // ToDo: Change
+      background-color: $fc-primary-color;
     }
   }
 
@@ -30,22 +36,35 @@
   }
 
   .add-set {
-    mat-icon {
-      width: 40px;
-      height: 40px;
-      font-size: 40px;
+    button {
+      font-size: 1em;
+
+      mat-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 32px;
+      }
     }
   }
 }
 
 .set-title {
-  margin: 6px 0 16px 0;
+  margin: 0 0 20px 0;
   padding: 0 12px;
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 
   h3 {
     margin: 0;
+  }
+}
+
+.card-background {
+  border-radius: 8px;
+  padding: 16px 16px 4px 16px;
+  background: mat-color($mat-blue-gray, 100);
+  box-shadow: inset 0 0 36px mat-color($mat-blue-gray, 200);
+
+  .placeholder-text {
+    color: mat-color($mat-blue-gray, 800);
   }
 }
 
@@ -55,7 +74,6 @@
 
   .card-wrapper {
     width: 260px;
-    height: 100%;
     min-height: 160px;
     margin: 0 6px 12px 6px;
     box-sizing: border-box;
@@ -71,15 +89,18 @@
   }
 
   button.add-card {
+    background: white;
+    transition: 0.3s;
+
     mat-icon {
-      width: 56px;
-      height: 56px;
-      font-size: 56px;
+      width: 48px;
+      height: 48px;
+      font-size: 48px;
     }
   }
 
   button.add-card:hover {
-    color: mat-color($fc-accent, default);
+    transform: scale(0.9, 0.9);
   }
 
 }

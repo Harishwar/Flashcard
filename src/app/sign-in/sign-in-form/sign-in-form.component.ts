@@ -38,11 +38,10 @@ export class SignInFormComponent implements OnInit {
                 this.signInForm.get('email').value,
                 this.signInForm.get('password').value
             ).then((data) => {
-                console.log(data);
                 this.signInLoading = false;
                 this.signIn.emit(true);
             }).catch((err) => {
-                console.log(err);
+                console.warn(err);
                 this.signInError = err.message;
                 this.signInLoading = false;
             });

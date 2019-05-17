@@ -47,15 +47,14 @@ export class SetDialogComponent implements OnInit {
             if (this.data.status === CRUD.UPDATE) {
                 this.firebaseService.updateSet(this.set.id, this.setForm.get('name').value)
                     .then((data) => {
-                        console.log(data);
                         this.isUpdating = false;
+                        this.set.name = this.setForm.get('name').value;
                         this.closeDialog({
                             status: CRUD.UPDATE,
-                            set: data
+                            set: this.set
                         });
                     })
                     .catch((err) => {
-                        console.warn(err);
                         if (err && err.message) {
                             this.helperService.showMessage(err.message);
                         }
@@ -64,7 +63,6 @@ export class SetDialogComponent implements OnInit {
             } else {
                 this.firebaseService.createSet(this.setForm.get('name').value)
                     .then((data) => {
-                        console.log(data);
                         this.isUpdating = false;
                         this.closeDialog({
                             status: CRUD.CREATE,
@@ -72,7 +70,6 @@ export class SetDialogComponent implements OnInit {
                         });
                     })
                     .catch((err) => {
-                        console.warn(err);
                         if (err && err.message) {
                             this.helperService.showMessage(err.message);
                         }
@@ -90,14 +87,12 @@ export class SetDialogComponent implements OnInit {
             this.isDeleting = true;
             this.firebaseService.deleteSet(this.set.id)
                 .then((data) => {
-                    console.log(data);
                     this.isDeleting = false;
                     this.closeDialog({
                         status: CRUD.DELETE
                     });
                 })
                 .catch((err) => {
-                    console.warn(err);
                     if (err && err.message) {
                         this.helperService.showMessage(err.message);
                     }

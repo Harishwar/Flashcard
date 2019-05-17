@@ -20,7 +20,6 @@ export class FirebaseService {
         this.userId = localStorage.getItem('user') || null;
         this.afAuth.auth.onAuthStateChanged(
             (user) => {
-                console.log(user);
                 this.ngZone.run(() => {
                     this.userId = user ? user.uid : null;
                     if (this.userId) {
@@ -30,7 +29,7 @@ export class FirebaseService {
                     }
                 });
             }, (err) => {
-                console.log(err);
+                console.warn(err);
                 this.ngZone.run(() => {
                     this.userId = null;
                     localStorage.removeItem('user');
@@ -56,7 +55,7 @@ export class FirebaseService {
      * Sign out
      */
     signOut() {
-        this.afAuth.auth.signOut().catch((err) => console.warn(err));
+        return this.afAuth.auth.signOut();
     }
 
     /**

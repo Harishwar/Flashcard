@@ -2,17 +2,105 @@
     <fc-progress-spinner [loading]="true"></fc-progress-spinner>
 </div>
 <ng-template #viewSetTemplate>
-    <mat-toolbar color="primary" class="mat-elevation-z1">
+    <mat-toolbar class="toolbar">
         <h1>Flashcard App</h1>
         <span fxFlex="auto"></span>
-        <button type="button" mat-icon-button (click)="openSignInDialog()">
-            Sign in
+        <button *ngIf="!firebaseService.userId; else homeTemplate;" type="button" mat-button (click)="openSignInDialog()">
+            Sign In
         </button>
+        <ng-template #homeTemplate>
+            <a type="button" mat-button routerLink="/"
+               matTooltip="Home" matTooltipPosition="below">
+                <mat-icon>dashboard</mat-icon>
+            </a>
+            <button type="button" mat-icon-button (click)="signOut()"
+                    matTooltip="Sign out" matTooltipPosition="below">
+                <mat-icon>logout</mat-icon>
+            </button>
+        </ng-template>
     </mat-toolbar>
     <main *ngIf="set">
-        <h2>
-            {{ set.name }}
-        </h2>
-        <hr />
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <div class="set-name">
+                <h2>
+                    <mat-icon>filter_none</mat-icon>
+                    <span>{{ set.name }}</span>
+                </h2>
+            </div>
+        </div>
+        <br /><br />
+        <div class="size-container" *ngIf="activeCard && set.cards?.length > 0">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <div class="flip-card-container"
+                     fxFlex="grow" fxLayout="row" fxLayoutAlign="center center">
+                    <div class="flip-card"
+                         [ngClass]="{'active' : activeCard.isOpened}"
+                         (click)="activeCard.isOpened = !activeCard.isOpened">
+                        <div class="front">
+                            <div class="top-actions" fxLayout="row" fxLayoutAlign="space-between center">
+                                <span>Front</span>
+                                <span>{{ activeCard.index + 1 }}</span>
+                            </div>
+                            <div class="content" fxLayout="column" fxLayoutAlign="center center">
+                                <h2>
+                                    {{ activeCard.term }}
+                                </h2>
+                            </div>
+                            <div class="bottom-actions" fxLayout="row" fxLayoutAlign="end center">
+                                <button type="button" mat-icon-button disableRipple>
+                                    <mat-icon>rotate_left</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <div class="top-actions" fxLayout="row" fxLayoutAlign="start center">
+                                <span class="card-label">Back</span>
+                            </div>
+                            <div class="content" fxLayout="column" fxLayoutAlign="center center">
+                                <h4 fxFlexAlign="center">
+                                    {{ activeCard.definition }}
+                                </h4>
+                            </div>
+                            <div class="bottom-actions" fxLayout="row" fxLayoutAlign="end center">
+                                <button type="button" mat-icon-button disableRipple>
+                                    <mat-icon>rotate_right</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br /><br />
+            <div *ngIf="set.cards.length > 1" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="12px">
+                <button type="button" mat-button color="accent" matTooltip="First" matTooltipPosition="below"
+                        [disabled]="activeCard.index === 0"
+                        (click)="selectFirstCard()">
+                    <mat-icon>first_page</mat-icon>
+                </button>
+                <button type="button" mat-icon-button color="accent" matTooltip="Previous" matTooltipPosition="below"
+                        [disabled]="activeCard.index === 0"
+                        (click)="selectPreviousCard()">
+                    <mat-icon>chevron_left</mat-icon>
+                </button>
+                <button type="button" mat-button color="accent" matTooltip="Random" matTooltipPosition="below"
+                        (click)="selectRandomCard()">
+                    <mat-icon>shuffle</mat-icon>
+                </button>
+                <button type="button" mat-icon-button color="accent" matTooltip="Next" matTooltipPosition="below"
+                        [disabled]="activeCard.index === set.cards.length - 1"
+                        (click)="selectNextCard()">
+                    <mat-icon>chevron_right</mat-icon>
+                </button>
+                <button type="button" mat-button color="accent" matTooltip="Last" matTooltipPosition="below"
+                        [disabled]="activeCard.index === set.cards.length - 1"
+                        (click)="selectLastCard()">
+                    <mat-icon>last_page</mat-icon>
+                </button>
+            </div>
+        </div>
+        <!-- No cards to display -->
+        <div *ngIf="set.cards?.length === 0">
+            No Cards
+        </div>
     </main>
 </ng-template>

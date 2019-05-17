@@ -15,4 +15,6 @@ export interface CardInterface {
     order?: number;
     createdAt?: Date | null;
     updatedAt?: Date | null;
+    index?: number;
+    isOpened?: boolean;
 }

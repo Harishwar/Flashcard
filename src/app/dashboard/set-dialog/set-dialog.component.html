@@ -5,7 +5,7 @@
     <mat-dialog-content>
         <mat-form-field appearance="outline" style="width: 100%">
             <mat-label>Name</mat-label>
-            <input matInput formControlName="name" autocomplete="off" maxlength="50"/>
+            <input matInput formControlName="name" autocomplete="off" maxlength="50" />
             <mat-error *ngIf="setForm.hasError('required', ['name'])">
                 Name is required
             </mat-error>
