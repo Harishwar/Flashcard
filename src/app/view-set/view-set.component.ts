@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
+import { Title } from '@angular/platform-browser';
 
 import { CardInterface, SetInterface } from '../models';
 import { FirebaseService } from '../services/firebase.service';
@@ -22,7 +23,8 @@ export class ViewSetComponent {
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private dialog: MatDialog,
-        private firebaseService: FirebaseService
+        private bodyTitle: Title,
+        private firebaseService: FirebaseService,
     ) {
         activatedRoute.params.subscribe((params) => {
             this.getSet(params.id);
@@ -56,6 +58,7 @@ export class ViewSetComponent {
                                     this.selectFirstCard();
                                 }
                                 this.isLoading = false;
+                                this.bodyTitle.setTitle(`Flashcard App - ${this.set.name}`);
                             }, (err) => {
                                 console.warn(err);
                                 this.isLoading = false;

@@ -22,6 +22,10 @@
       font-size: 1.3em;
       white-space: normal;
       border-radius: 8px;
+
+      @media screen and (max-width: 479px) {
+        min-height: 60px;
+      }
     }
 
     button.active {
@@ -60,8 +64,8 @@
 .card-background {
   border-radius: 8px;
   padding: 16px 16px 4px 16px;
-  background: mat-color($mat-blue-gray, 100);
-  box-shadow: inset 0 0 36px mat-color($mat-blue-gray, 200);
+  background: mat-color($mat-blue-gray, 50);
+  box-shadow: inset 0 0 36px mat-color($mat-blue-gray, 100);
 
   .placeholder-text {
     color: mat-color($mat-blue-gray, 800);

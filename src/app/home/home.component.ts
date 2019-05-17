@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 import { FirebaseService } from '../services/firebase.service';
 
@@ -9,7 +10,11 @@ import { FirebaseService } from '../services/firebase.service';
 
 export class HomeComponent {
 
-    constructor(public firebaseService: FirebaseService) {
+    constructor(
+        private bodyTitle: Title,
+        public firebaseService: FirebaseService
+    ) {
+        this.bodyTitle.setTitle(`Flashcard App`);
     }
 
 }

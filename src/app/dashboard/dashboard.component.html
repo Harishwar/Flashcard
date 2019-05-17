@@ -7,7 +7,7 @@
     </button>
 </mat-toolbar>
 <main>
-    <div class="set-container" fxLayout="row wrap" fxLayoutAlign="start stretch">
+    <div class="set-container" fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutAlign.xs="center center">
         <div class="set-wrapper" *ngFor="let set of setsList">
             <button type="button" mat-stroked-button color="primary"
                     [ngClass]="{'active' : set.id === activeSet?.id}"
@@ -28,7 +28,8 @@
     </div>
     <div *ngIf="activeSet;">
         <hr />
-        <div class="set-title" fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="set-title"
+             fxLayout="row" fxLayout.xs="column-reverse" fxLayoutAlign="space-between center">
             <div fxFlex="grow" class="set-name">
                 <h2>
                     <mat-icon>filter_none</mat-icon>
