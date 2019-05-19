@@ -57,7 +57,7 @@ main {
     color: white;
     border-radius: 8px;
     background-color: mat-color($mat-blue-gray, 800);
-    transform: perspective(400px) rotateY(6deg) rotate(-1.5deg);
+    transform: rotate(-1.5deg);
 
     .mat-icon {
       width: 18px;
