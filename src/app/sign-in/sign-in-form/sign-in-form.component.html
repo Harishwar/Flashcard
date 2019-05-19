@@ -3,7 +3,7 @@
         <mat-label>Email</mat-label>
         <input matInput type="text" formControlName="email">
         <mat-error *ngIf="signInForm.hasError('required', ['email'])">
-            Please enter username
+            Please enter your email address
         </mat-error>
         <mat-error *ngIf="signInForm.hasError('email', ['email'])">
             Invalid email address
@@ -16,8 +16,8 @@
             Please enter a password
         </mat-error>
     </mat-form-field>
-    <div *ngIf="signInError" class="error-msg">
-        {{ signInError }}
+    <div *ngIf="signInForm.hasError('serverResponse')" class="error-msg text-center">
+        {{ signInForm.getError('serverResponse') }}
     </div>
     <button type="submit" mat-raised-button color="primary" [disabled]="signInLoading">
         <fc-button-spinner [loading]="signInLoading"></fc-button-spinner>

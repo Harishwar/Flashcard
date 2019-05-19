@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { Title } from '@angular/platform-browser';
@@ -29,6 +29,25 @@ export class ViewSetComponent {
         activatedRoute.params.subscribe((params) => {
             this.getSet(params.id);
         });
+    }
+
+    /**
+     * Capture keyboard events to switch cards
+     */
+    @HostListener('window:keydown', ['$event'])
+    onKeydown(event: KeyboardEvent) {
+        if (event.key === 'ArrowLeft') {
+            this.selectPreviousCard();
+            event.preventDefault();
+        }
+        if (event.key === 'ArrowRight') {
+            this.selectNextCard();
+            event.preventDefault();
+        }
+        if (event.key === ' ') {
+            this.selectRandomCard();
+            event.preventDefault();
+        }
     }
 
     /**
@@ -99,7 +118,9 @@ export class ViewSetComponent {
      * Select random card
      */
     selectRandomCard() {
-        this.makeCardActive(Math.floor(Math.random() * this.set.cards.length));
+        if (this.set.cards.length > 1) {
+            this.makeCardActive(Math.floor(Math.random() * this.set.cards.length));
+        }
     }
 
     /**

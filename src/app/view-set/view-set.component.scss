@@ -13,7 +13,7 @@
   position: relative;
   perspective: 800px;
   transform-style: preserve-3d;
-  animation: flip-animation .6s;
+  animation: flip-animation .5s cubic-bezier(0.3, 0.5, 0.5, 1);
 
   .flip-card {
     width: 300px;
@@ -48,8 +48,9 @@
         transform: translateZ(80px) scale(0.9);
 
         h2, h4 {
-          margin: 6px;
+          margin: 8px;
           overflow: auto;
+          white-space: pre-line;
         }
       }
     }
@@ -73,7 +74,7 @@
 }
 
 .size-container {
-  margin: 0 auto;
+  margin: 24px auto;
   max-width: 960px;
 }
 

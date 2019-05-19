@@ -29,14 +29,15 @@
     <div *ngIf="activeSet;">
         <hr />
         <div class="set-title"
-             fxLayout="row" fxLayout.xs="column-reverse" fxLayoutAlign="space-between center">
-            <div fxFlex="grow" class="set-name">
+             fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="0px"
+             fxLayout.xs="column-reverse" fxLayoutGap.xs="12px">
+            <div fxFlex="grow" class="set-name" fxFlexAlign="start">
                 <h2>
                     <mat-icon>filter_none</mat-icon>
                     <span>{{ activeSet.name }}</span>
                 </h2>
             </div>
-            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="12px">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="12px" fxFlexAlign="end">
                 <button type="button" mat-icon-button color="accent" matTooltip="Edit/Delete Set"
                         (click)="editSet()">
                     <mat-icon>edit</mat-icon>
@@ -50,18 +51,27 @@
         <fc-progress-bar [loading]="cardsLoading"></fc-progress-bar>
         <div class="card-background" *ngIf="!cardsLoading">
             <div class="card-container" fxLayout="row wrap" fxLayoutAlign="start stretch">
-                <mat-card class="card-wrapper mat-elevation-z2" *ngFor="let card of activeSet.cards">
-                    <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
-                        <span>{{ card.term }}</span>
-                        <button type="button" class="edit-card" mat-icon-button matTooltip="Edit Card"
-                                (click)="editCard(card)">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                    </mat-card-title>
-                    <mat-card-content>
-                        <p>
+                <mat-card class="card-wrapper mat-elevation-z2" *ngFor="let card of activeSet.cards; let i = index;">
+                    <span class="count">
+                        {{ i + 1 }}
+                    </span>
+                    <mat-card-content class="card-content" fxLayout="column" fxLayoutAlign="start stretch">
+                        <p class="title">
+                            Term
+                        </p>
+                        <p class="term description">
+                            {{ card.term }}
+                        </p>
+                        <p class="title">
+                            Definition
+                        </p>
+                        <p class="definition description">
                             {{ card.definition }}
                         </p>
+                        <span fxFlex></span>
+                        <button type="button" mat-stroked-button color="accent" (click)="editCard(card)">
+                            Edit
+                        </button>
                     </mat-card-content>
                 </mat-card>
                 <button type="button" class="card-wrapper add-card mat-elevation-z2" mat-stroked-button color="accent"

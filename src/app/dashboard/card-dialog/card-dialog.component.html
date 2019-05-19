@@ -12,7 +12,7 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Definition</mat-label>
-            <textarea matInput formControlName="definition" autocomplete="off" maxlength="500"></textarea>
+            <textarea matInput formControlName="definition" autocomplete="off" rows="4" maxlength="500"></textarea>
             <mat-error *ngIf="cardForm.hasError('required', ['definition'])">
                 Definition is required
             </mat-error>

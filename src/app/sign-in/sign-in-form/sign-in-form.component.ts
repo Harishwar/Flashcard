@@ -10,8 +10,8 @@ import { FirebaseService } from '../../services/firebase.service';
 })
 
 export class SignInFormComponent implements OnInit {
+
     public signInForm: FormGroup;
-    public signInError: string | null;
     public signInLoading: boolean;
 
     @Output()
@@ -25,13 +25,9 @@ export class SignInFormComponent implements OnInit {
             email: new FormControl('', [Validators.required, Validators.email]),
             password: new FormControl('', Validators.required)
         });
-        this.signInForm.valueChanges.subscribe(() => {
-            this.signInError = null;
-        });
     }
 
     submitForm() {
-        this.signInError = null;
         if (this.signInForm.valid) {
             this.signInLoading = true;
             this.firebaseService.signIn(
@@ -42,7 +38,7 @@ export class SignInFormComponent implements OnInit {
                 this.signIn.emit(true);
             }).catch((err) => {
                 console.warn(err);
-                this.signInError = err.message;
+                this.signInForm.setErrors({ serverResponse: err.message });
                 this.signInLoading = false;
             });
         }

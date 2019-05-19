@@ -17,15 +17,11 @@
 
     button {
       height: 100%;
-      min-height: 90px;
+      min-height: 94px;
       min-width: 160px;
       font-size: 1.3em;
       white-space: normal;
       border-radius: 8px;
-
-      @media screen and (max-width: 479px) {
-        min-height: 60px;
-      }
     }
 
     button.active {
@@ -36,12 +32,13 @@
 
   .add-set:hover,
   .set-wrapper:hover {
-    transform: scale(0.9, 0.9);
+    transform: scale(0.96, 0.96);
   }
 
   .add-set {
     button {
       font-size: 1em;
+      padding: 12px 16px 8px 16px;
 
       mat-icon {
         width: 32px;
@@ -83,11 +80,38 @@
     box-sizing: border-box;
     border-radius: 8px;
 
-    button.edit-card:not(:hover) {
-      opacity: 0.6;
+    .count {
+      float: right;
+      opacity: 0.48;
+      font-size: 0.9em;
+      font-weight: 500;
     }
 
-    @media screen and (max-width: 479px) {
+    .card-content {
+      height: 100%;
+
+      .title {
+        opacity: 0.72;
+        font-size: 0.9em;
+        margin: 0;
+      }
+
+      .description {
+        font-weight: 500;
+        margin: 8px 0 20px 0;
+        white-space: pre-line;
+      }
+
+      .term.description {
+        font-size: 1.2em;
+      }
+
+      .definition.description {
+        font-size: 1.1em;
+      }
+    }
+
+    @media screen and (max-width: 599px) {
       width: 100%;
     }
   }
@@ -95,6 +119,7 @@
   button.add-card {
     background: white;
     transition: 0.3s;
+    padding: 16px 16px 8px 12px;
 
     mat-icon {
       width: 48px;
@@ -104,7 +129,7 @@
   }
 
   button.add-card:hover {
-    transform: scale(0.9, 0.9);
+    transform: scale(0.96, 0.96);
   }
 
 }

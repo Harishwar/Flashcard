@@ -19,7 +19,7 @@
             </button>
         </ng-template>
     </mat-toolbar>
-    <main *ngIf="set">
+    <main *ngIf="set" fxLayout="column" fxLayoutAlign="center center">
         <div fxLayout="row" fxLayoutAlign="center center">
             <div class="set-name">
                 <h2>
@@ -28,7 +28,6 @@
                 </h2>
             </div>
         </div>
-        <br /><br />
         <div class="size-container" *ngIf="activeCard && set.cards?.length > 0">
             <div fxLayout="row" fxLayoutAlign="center center">
                 <div class="flip-card-container"
@@ -77,16 +76,19 @@
                         (click)="selectFirstCard()">
                     <mat-icon>first_page</mat-icon>
                 </button>
-                <button type="button" mat-icon-button color="accent" matTooltip="Previous" matTooltipPosition="below"
+                <button type="button" mat-icon-button color="accent"
+                        matTooltip="Previous" matTooltipPosition="below"
                         [disabled]="activeCard.index === 0"
                         (click)="selectPreviousCard()">
                     <mat-icon>chevron_left</mat-icon>
                 </button>
-                <button type="button" mat-button color="accent" matTooltip="Random" matTooltipPosition="below"
+                <button type="button" mat-button color="accent"
+                        matTooltip="Random" matTooltipPosition="below"
                         (click)="selectRandomCard()">
                     <mat-icon>shuffle</mat-icon>
                 </button>
-                <button type="button" mat-icon-button color="accent" matTooltip="Next" matTooltipPosition="below"
+                <button type="button" mat-icon-button color="accent"
+                        matTooltip="Next" matTooltipPosition="below"
                         [disabled]="activeCard.index === set.cards.length - 1"
                         (click)="selectNextCard()">
                     <mat-icon>chevron_right</mat-icon>

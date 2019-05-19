@@ -35,6 +35,8 @@ hr {
 
 main {
   padding: 16px;
+  box-sizing: border-box;
+  min-height: calc(100% - 64px);
 }
 
 .text-center {
@@ -53,10 +55,9 @@ main {
     padding: 12px;
     margin: 0;
     color: white;
-    max-width: 90%;
     border-radius: 8px;
     background-color: mat-color($mat-blue-gray, 800);
-    transform: rotate(-1.5deg) translate3d(0, 0, 0);
+    transform: perspective(400px) rotateY(6deg) rotate(-1.5deg);
 
     .mat-icon {
       width: 18px;

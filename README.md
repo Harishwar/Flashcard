@@ -6,7 +6,7 @@ Web app to create and share flashcards.
 
 ### Backend
 **Google Firebase**
-* Create web app in [Firebase](https://firebase.google.com). Enable Authentication, Cloud Firestore Database, Storage, Hosting.
+* Create web app in [Firebase](https://firebase.google.com). Enable Email Authentication, Cloud Firestore Database, Storage, Hosting.
 * Install Firebase CLI
 ```
 npm install -g firebase-tools
